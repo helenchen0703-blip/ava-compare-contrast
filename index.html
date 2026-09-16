@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" data-page-node-id="lIAADgXQwG55PVSfd1HjmO">
+<head data-page-node-id="k8bVdD4O5fGqYGDEktyhvT">
+<meta charset="UTF-8" data-page-node-id="0LM6jnVT06tTvgYS3KgBF9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="Rzrzddf5kOmLkceBHXuGQP">
+<title>Athens vs. Sparta — Compare & Contrast Worktable</title>
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --athens-blue: #2196F3;
+  --athens-light: #E3F2FD;
+  --sparta-red: #E53935;
+  --sparta-light: #FFEBEE;
+  --same-green: #43A047;
+  --same-light: #E8F5E9;
+  --diff-orange: #FB8C00;
+  --diff-light: #FFF3E0;
+  --bg: #FAFCFE;
+  --card: #FFFFFF;
+  --text: #263238;
+  --text-light: #607D8B;
+  --border: #E0E0E0;
+  --radius: 16px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 17px;
+}
+
+/* ===== Header ===== */
+.header {
+  background: linear-gradient(135deg, var(--athens-blue) 0%, #7B1FA2 50%, var(--sparta-red) 100%);
+  color: white;
+  padding: 32px 24px 28px;
+  text-align: center;
+  border-radius: 0 0 24px 24px;
+  box-shadow: var(--shadow-lg);
+}
+.header h1 { font-size: 1.7rem; margin-bottom: 6px; letter-spacing: 0.5px; }
+.header p { font-size: 1.02rem; opacity: 0.92; }
+.header .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 2px solid rgba(255,255,255,0.35);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  margin-top: 10px;
+}
+
+/* ===== Layout ===== */
+.container { max-width: 880px; margin: 0 auto; padding: 24px 20px 60px; }
+
+.step-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 28px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 12px 0;
+  z-index: 100;
+}
+.step-nav a {
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-light);
+  background: var(--card);
+  border: 2px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+.step-nav a:hover { color: var(--athens-blue); border-color: var(--athens-blue); }
+
+/* ===== Section Cards ===== */
+.section {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.section-header {
+  padding: 18px 24px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-num {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 1.05rem;
+  color: white; flex-shrink: 0;
+}
+.section-header h2 { font-size: 1.22rem; }
+.section-header .hint { font-size: 0.85rem; color: var(--text-light); margin-left: auto; }
+.section-body { padding: 8px 24px 24px; }
+
+/* ===== Step 1: Vocabulary Cards ===== */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 14px;
+}
+.vocab-card {
+  background: var(--athens-light);
+  border: 2px solid #BBDEFB;
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-align: center;
+}
+.vocab-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.vocab-card.sparta { background: var(--sparta-light); border-color: #FFCDD2; }
+.vocab-card .icon { font-size: 2rem; margin-bottom: 6px; }
+.vocab-card .word { font-weight: 700; font-size: 1.05rem; color: var(--text); }
+.vocab-card .meaning {
+  font-size: 0.82rem; color: var(--text-light);
+  margin-top: 4px; display: none;
+}
+.vocab-card.flipped .meaning { display: block; }
+.vocab-card .tap-hint { font-size: 0.72rem; color: var(--text-light); margin-top: 6px; font-style: italic; }
+
+/* ===== Step 2: T-Chart ===== */
+.t-chart {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.t-chart-header {
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+}
+.t-chart-header.same { background: var(--same-light); color: var(--same-green); border-bottom: 3px solid var(--same-green); }
+.t-chart-header.diff { background: var(--diff-light); color: var(--diff-orange); border-bottom: 3px solid var(--diff-orange); }
+.t-chart-cell { padding: 12px; }
+.t-chart-cell.same { background: var(--same-light); border-right: 1px solid var(--border); }
+.t-chart-cell.diff { background: var(--diff-light); }
+
+.t-chart textarea {
+  width: 100%;
+  border: 1.5px dashed #BDBDBD;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 44px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.7);
+  transition: border-color 0.2s;
+}
+.t-chart textarea:focus { outline: none; border-color: var(--same-green); border-style: solid; }
+.t-chart-cell.diff textarea:focus { border-color: var(--diff-orange); }
+
+.add-row-btn {
+  display: block;
+  margin: 4px auto 0;
+  background: none;
+  border: 2px dashed #BDBDBD;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.add-row-btn:hover { border-color: var(--athens-blue); color: var(--athens-blue); }
+.same .add-row-btn:hover { border-color: var(--same-green); color: var(--same-green); }
+.diff .add-row-btn:hover { border-color: var(--diff-orange); color: var(--diff-orange); }
+
+/* ===== Step 3: House Organizer ===== */
+.house-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 0;
+}
+.house {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.house-roof {
+  width: 0; height: 0;
+  border-left: 200px solid transparent;
+  border-right: 200px solid transparent;
+  border-bottom: 70px solid var(--athens-blue);
+  position: relative;
+  margin-bottom: -1px;
+}
+.house-roof span {
+  position: absolute;
+  top: 32px;
+  left: -30px;
+  width: 60px;
+  text-align: center;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+.house-body {
+  width: 400px;
+  border: 3px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  background: #FAFAFA;
+}
+.house-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 2px solid var(--border);
+}
+.house-row:last-child { border-bottom: none; }
+.house-label {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: white;
+  flex-shrink: 0;
+}
+.house-row.t .house-label { background: var(--athens-blue); border-radius: 0 0 0 12px; }
+.house-row.i .house-label { background: var(--same-green); }
+.house-row.d .house-label { background: var(--diff-orange); }
+.house-row.e .house-label { background: #7B1FA2; border-radius: 0 0 12px 0; }
+.house-input {
+  flex: 1;
+  border: none;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: white;
+  resize: none;
+  min-height: 44px;
+  outline: none;
+}
+.house-input:focus { background: #FFFDE7; }
+.house-row.t .house-input { background: var(--athens-light); }
+.house-row.i .house-input { background: var(--same-light); }
+.house-row.d .house-input { background: var(--diff-light); }
+.house-row.e .house-input { background: #F3E5F5; }
+
+.house-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.82rem; color: var(--text-light); }
+.legend-dot { width: 14px; height: 14px; border-radius: 4px; }
+
+/* ===== Step 4: Sentence Builder ===== */
+.sentence-starters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.starter-card {
+  background: var(--athens-light);
+  border: 2px solid #BBDEFB;
+  border-left: 5px solid var(--athens-blue);
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.starter-card.diff {
+  background: var(--diff-light);
+  border-color: #FFCC80;
+  border-left-color: var(--diff-orange);
+}
+.starter-card.same {
+  background: var(--same-light);
+  border-color: #A5D6A7;
+  border-left-color: var(--same-green);
+}
+.starter-text {
+  font-weight: 600;
+  color: var(--athens-blue);
+  white-space: nowrap;
+}
+.starter-card.diff .starter-text { color: var(--diff-orange); }
+.starter-card.same .starter-text { color: var(--same-green); }
+.starter-input {
+  flex: 1;
+  min-width: 150px;
+  border: none;
+  border-bottom: 2px dashed #BDBDBD;
+  background: transparent;
+  padding: 4px 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.starter-input:focus { border-bottom-color: var(--athens-blue); border-bottom-style: solid; }
+.starter-card.diff .starter-input:focus { border-bottom-color: var(--diff-orange); }
+.starter-card.same .starter-input:focus { border-bottom-color: var(--same-green); }
+
+/* ===== Step 5: Final Writing ===== */
+.writing-prompt {
+  background: linear-gradient(135deg, #FFF8E1, #FFF3E0);
+  border: 2px dashed #FFB74D;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.writing-prompt strong { color: #E65100; }
+.writing-area {
+  width: 100%;
+  min-height: 200px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 1.02rem;
+  font-family: inherit;
+  line-height: 1.8;
+  resize: vertical;
+  background: #FFFDE7;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.writing-area:focus { border-color: var(--athens-blue); }
+
+.writing-checklist {
+  margin-top: 16px;
+  display: grid;
+  gap: 8px;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #F5F5F5;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.check-item:hover { background: #EEEEEE; }
+.check-item input { width: 20px; height: 20px; accent-color: var(--same-green); cursor: pointer; }
+.check-item label { cursor: pointer; font-size: 0.95rem; }
+.check-item.done { background: var(--same-light); }
+.check-item.done label { color: var(--same-green); font-weight: 600; }
+
+/* ===== Step 6: Glow & Grow ===== */
+.glow-grow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.gg-card {
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 2px solid;
+}
+.gg-card.glow { background: var(--same-light); border-color: #A5D6A7; }
+.gg-card.grow { background: var(--diff-light); border-color: #FFCC80; }
+.gg-card h3 { font-size: 1.05rem; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.gg-card.glow h3 { color: var(--same-green); }
+.gg-card.grow h3 { color: var(--diff-orange); }
+.gg-card textarea {
+  width: 100%;
+  border: 1.5px dashed #BDBDBD;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 60px;
+  background: rgba(255,255,255,0.7);
+  outline: none;
+}
+.gg-card textarea:focus { border-color: var(--same-green); border-style: solid; }
+.gg-card.grow textarea:focus { border-color: var(--diff-orange); }
+
+/* ===== Buttons ===== */
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.btn-primary {
+  background: var(--athens-blue);
+  color: white;
+  box-shadow: 0 3px 10px rgba(33,150,243,0.3);
+}
+.btn-primary:hover { background: #1976D2; transform: translateY(-2px); }
+.btn-secondary {
+  background: white;
+  color: var(--text-light);
+  border: 2px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--athens-blue); color: var(--athens-blue); }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #333;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 24px;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+  z-index: 9999;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.3rem; }
+  .glow-grow { grid-template-columns: 1fr; }
+  .house-roof { border-left-width: 130px; border-right-width: 130px; border-bottom-width: 55px; }
+  .house-roof span { top: 24px; left: -25px; width: 50px; }
+  .house-body { width: 260px; }
+  .house-label { width: 32px; font-size: 0.9rem; }
+}
+</style>
+</head>
+<body data-page-node-id="gjDkIxkFf5uk3le3X3SqjM">
+
+<!-- ===== Header ===== -->
+<div class="header" data-page-node-id="92D022e7lR0x1yh0dYKgar">
+  <h1 data-page-node-id="J07SBGjHdcTV9srQ7p1PuC">Athens vs. Sparta — Compare & Contrast</h1>
+  <p data-page-node-id="dpyErNrG5KD5OlwLD3ftxg">Use evidence from both texts to show how they were alike and different.</p>
+  <span class="badge" data-page-node-id="FM1blIjAYk4amJcBMO9FRW">BRIDGE Worktable · Grade 4</span>
+</div>
+
+<div class="container" data-page-node-id="ZrHE4N3S4p7jHSbLoV2Am4">
+
+  <!-- Step Nav -->
+  <nav class="step-nav" data-page-node-id="WTBEhKVX0CIMJIT1ET7zn4">
+    <a href="#step1" data-page-node-id="fIPdF9TpvHxtoFyzTSBgrn">1 Vocabulary</a>
+    <a href="#step2" data-page-node-id="BPYQu4NGyQjJZ1moXmCPFP">2 Sort It</a>
+    <a href="#step3" data-page-node-id="GbQtatsdZoNcjnL0ofouaB">3 House Map</a>
+    <a href="#step4" data-page-node-id="SH5CzLBxM46ZePzNBSo5W2">4 Build Sentences</a>
+    <a href="#step5" data-page-node-id="WOj61jX2wz6zaaplUBUPV3">5 Write!</a>
+    <a href="#step6" data-page-node-id="aDmAhkWk8zz7fPggCRMqS0">6 Glow & Grow</a>
+  </nav>
+
+  <!-- ===== Step 1: Vocabulary ===== -->
+  <section class="section" id="step1" data-page-node-id="OAcvvTRHMjNesc7AFQHipF">
+    <div class="section-header" data-page-node-id="a2ACX0nuC28o7UVN4PgjPM">
+      <div class="section-num" style="background:var(--athens-blue)" data-page-node-id="tJcb5sHfLY4qyBMvvSjJCS">1</div>
+      <h2 data-page-node-id="Huj9BM4EgngLSzIh32NlG8">Key Vocabulary</h2>
+      <span class="hint" data-page-node-id="ECebhHMsgIjxtrMT5VCjgg">Tap a card to flip</span>
+    </div>
+    <div class="section-body" data-page-node-id="HQtqeoREk1aGYtP0D0fFOH">
+      <p style="margin-bottom:14px;color:var(--text-light);font-size:0.9rem;" data-page-node-id="6cu80Q7mOw7X4FrL8ngv3A">
+        Before you start writing, check if you know these words. Tap each card to see the meaning.
+      </p>
+      <div class="vocab-grid" data-page-node-id="hUzdSvNsAJCqwRri36Rjxx">
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="y3V5lkaGuaQZHaYD3CuFPY">
+          <div class="icon" data-page-node-id="ja2zZxr3rvHdctq6q5PFvE">🏙️</div>
+          <div class="word" data-page-node-id="kzMCmi7tltqj2rEVEFKHtM">city-state</div>
+          <div class="meaning" data-page-node-id="SFgbXjoUbAZ7XfKRNKFFON">A city that is also its own country, with its own laws and army.</div>
+          <div class="tap-hint" data-page-node-id="kuJc5dLKKM2BjsEvGiEv6m">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="LqNTwRmrFvpGiVlSn53cSl">
+          <div class="icon" data-page-node-id="KHQlWTCJvBev7iyPJ9118X">📊</div>
+          <div class="word" data-page-node-id="Rc7rSO5AaR34DdXN5NTLpq">trade / trading</div>
+          <div class="meaning" data-page-node-id="ZMhlkP55q7rOUgCnn8aiUC">Buying and selling goods with other people or places.</div>
+          <div class="tap-hint" data-page-node-id="tkTFJR1HBTuYI9p00F3Mpj">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="Xc5fFXVgwGm4OteROWi9Gc">
+          <div class="icon" data-page-node-id="QZKolQagwhqyowbZ2J387V">⚔️</div>
+          <div class="word" data-page-node-id="u0vZSTqgOA5OLKl3mhsAL0">soldier</div>
+          <div class="meaning" data-page-node-id="jYxpfSCgIYqMlnY1HcQHkg">A person who fights in an army.</div>
+          <div class="tap-hint" data-page-node-id="qa0dd5CSbuHFjCIJk5J1nC">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="cO6hJyvAIaupeCif7JePr9">
+          <div class="icon" data-page-node-id="tdyRs9jep8YwpH5lBGgQfq">💪</div>
+          <div class="word" data-page-node-id="dYCGncVs3L100Y5DuTmaax">tough</div>
+          <div class="meaning" data-page-node-id="0BCoC19JtmSaB7nHvbpO4s">Strong and hard; not easy to break or hurt.</div>
+          <div class="tap-hint" data-page-node-id="i3ggnsQT3UCTXErU92pL6p">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="gEmbzf1xk3BlmzgVWUUyWo">
+          <div class="icon" data-page-node-id="29LxyH59T1QFTE693wc3iJ">🏋️</div>
+          <div class="word" data-page-node-id="xYNrr0xVGrX3aXooPzDd3v">train / training</div>
+          <div class="meaning" data-page-node-id="vEfNok3leTKVfNOvz7Ojxa">Practicing again and again to get better at something.</div>
+          <div class="tap-hint" data-page-node-id="HYYleN2lUgEQQbMs0z9BJP">tap to flip</div>
+        </div>
+        <div class="vocab-card sparta" onclick="flipCard(this)" data-page-node-id="wSdNCMk3O9AwdpeV99KBoG">
+          <div class="icon" data-page-node-id="3JSd2a01l5JZSj7O3x6Mce">👩</div>
+          <div class="word" data-page-node-id="yHn7zTR0mjPeXrGiDzUDo3">freedom</div>
+          <div class="meaning" data-page-node-id="SfkfX2zLbDWASHvR5gr05q">Being able to do what you want and make your own choices.</div>
+          <div class="tap-hint" data-page-node-id="AEGJHkUeFuRbuB6FKYrNpv">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="4E6996pYewcOv2zQT0yhLV">
+          <div class="icon" data-page-node-id="IeG0zEgLMqc3Ul94PiJtR5">🔁</div>
+          <div class="word" data-page-node-id="2Vwz1q7iUHFDHqescs9SVy">compare</div>
+          <div class="meaning" data-page-node-id="3pw7nHCreI81w2yYDNKoRf">To find how things are the SAME or alike.</div>
+          <div class="tap-hint" data-page-node-id="EEqzQ0AXHIMbFjFsZ5eyWO">tap to flip</div>
+        </div>
+        <div class="vocab-card" onclick="flipCard(this)" data-page-node-id="FP02TGDT4U7DIyQnWxEfqC">
+          <div class="icon" data-page-node-id="jtUkixZHwf0ChcDlNF7PJM">🔀</div>
+          <div class="word" data-page-node-id="c26yxaSzPEzEz6CkVhFKz4">contrast</div>
+          <div class="meaning" data-page-node-id="ywD914bQIxDfiC5xDOF3Ey">To find how things are DIFFERENT.</div>
+          <div class="tap-hint" data-page-node-id="iyni1TSI7mX6vFqXyWPDd9">tap to flip</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Step 2: T-Chart ===== -->
+  <section class="section" id="step2" data-page-node-id="MehDgtOtUxivPTvhT1F7Rg">
+    <div class="section-header" data-page-node-id="OInvmdimqn0zqrXyq8CjL6">
+      <div class="section-num" style="background:var(--same-green)" data-page-node-id="PKce2UDagaBz4qjtnsUki5">2</div>
+      <h2 data-page-node-id="AD3A1uySDoLXYGf8vtgMAk">Sort: Same or Different?</h2>
+      <span class="hint" data-page-node-id="Bf1xFHpl4x9FFRmqX2ym6L">Fill in what you find</span>
+    </div>
+    <div class="section-body" data-page-node-id="xvjOAtPdcVperQHmRv4WYm">
+      <p style="margin-bottom:14px;color:var(--text-light);font-size:0.9rem;" data-page-node-id="vsjbblv173t3MqsUfKyWnq">
+        Reread the texts. Write things that were <strong style="color:var(--same-green)" data-page-node-id="hZFDq5C0C1eqP0LhtsOFWA">alike</strong> in the green box.
+        Write things that were <strong style="color:var(--diff-orange)" data-page-node-id="UlwzSyyDiB2ZBOE7RVWBfZ">different</strong> in the orange box.
+      </p>
+      <div class="t-chart" data-page-node-id="dwDF4LdqM6DtDvlTwvUm3h">
+        <div class="t-chart-header same" data-page-node-id="AJqwRaFQuic4XWZdugWDA6">✅ Same / Alike</div>
+        <div class="t-chart-header diff" data-page-node-id="e8QXLAsFlmLsTpYPSNZCuE">⚡ Different</div>
+        <div class="t-chart-cell same" id="same-cell" data-page-node-id="b05SJJg9Ik9FcDgDzgKPMj">
+          <textarea placeholder="Both were city-states in Ancient Greece." rows="2"></textarea>
+          <textarea placeholder="Type another similarity..." rows="2"></textarea>
+        </div>
+        <div class="t-chart-cell diff" id="diff-cell" data-page-node-id="V6ZscHWqUHNfzT5PudlIB3">
+          <textarea placeholder="In Athens, boys learned reading and math." rows="2"></textarea>
+          <textarea placeholder="In Sparta, boys trained to be soldiers." rows="2"></textarea>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px;" data-page-node-id="5i9VpPzzKxozJNKgGH7MGt">
+        <button class="add-row-btn" style="flex:1" onclick="addRow('same-cell')" data-page-node-id="QVb629OhdMxJAatEfiAUZ3">+ Add same</button>
+        <button class="add-row-btn" style="flex:1" onclick="addRow('diff-cell')" data-page-node-id="zUMXydvH9FvTGaVVqtuAwV">+ Add different</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Step 3: House Organizer ===== -->
+  <section class="section" id="step3" data-page-node-id="5HeWxRlZBekL0ID9HXfdAn">
+    <div class="section-header" data-page-node-id="1yjGntS9Z7D9HGh0JyDEx7">
+      <div class="section-num" style="background:#7B1FA2" data-page-node-id="vVegwBjRoMopmVneDeowYO">3</div>
+      <h2 data-page-node-id="KVZgwfqwxLihxdyGcj45q5">House Map (T–I–I–I–D–D–D–E)</h2>
+      <span class="hint" data-page-node-id="4lKYE115TKQKsTq0vKAw8K">Plan before you write</span>
+    </div>
+    <div class="section-body" data-page-node-id="vsDQfxWnHAoivZLthHjBvf">
+      <p style="margin-bottom:14px;color:var(--text-light);font-size:0.9rem;" data-page-node-id="E30mIshlaM5pOgfgoETh9T">
+        Fill in the house to plan your paragraph. Each box = one sentence.
+      </p>
+      <div class="house-wrap" data-page-node-id="xCWhefhiIFMq225jbzuoEU">
+        <div class="house" data-page-node-id="2WcFqqKtpCXP1nG1SnSZFu">
+          <div class="house-roof" data-page-node-id="9DJiIaD19ooahZ5MYDza8F"><span data-page-node-id="OJrPoCAwi4f8ZzvPJS5Ppr">T</span></div>
+          <div class="house-body" data-page-node-id="4ZxoW5HW3kZ5KVGFfFfB5S">
+            <div class="house-row t" data-page-node-id="2YzvuaeDe658xZYIBWJX82">
+              <div class="house-label" data-page-node-id="ija8rmb4ammqFB1FlnmHg7">T</div>
+              <textarea class="house-input" placeholder="Topic: Athens and Sparta were two important city-states in Ancient Greece." rows="2"></textarea>
+            </div>
+            <div class="house-row i" data-page-node-id="nMYxMu1vAOuFryHtXcj7Ch">
+              <div class="house-label" data-page-node-id="5gfpxRFJ1NHZhyuNsu1ldC">I</div>
+              <textarea class="house-input" placeholder="Same 1: Both were city-states." rows="2"></textarea>
+            </div>
+            <div class="house-row i" data-page-node-id="Exd09dfAP0lDpnw8Zi5jES">
+              <div class="house-label" data-page-node-id="BF6zJs0FtHeschJtCXpFcr">I</div>
+              <textarea class="house-input" placeholder="Same 2: People lived there a long time ago." rows="2"></textarea>
+            </div>
+            <div class="house-row i" data-page-node-id="PuL44Cr3piASbZYCjs9IS1">
+              <div class="house-label" data-page-node-id="5KfMFH0J8rkRVErgOov7bd">I</div>
+              <textarea class="house-input" placeholder="Same 3 (optional)..." rows="2"></textarea>
+            </div>
+            <div class="house-row d" data-page-node-id="PZBTAIbPOViZfcYniEgfhs">
+              <div class="house-label" data-page-node-id="bjQolaj4k4RH52dFAxANyp">D</div>
+              <textarea class="house-input" placeholder="Diff 1: In Athens, boys learned reading and math." rows="2"></textarea>
+            </div>
+            <div class="house-row d" data-page-node-id="bEHhCtD1gdzVSmTBDbMo02">
+              <div class="house-label" data-page-node-id="DyJquhElfXJAWjwzcIZsjG">D</div>
+              <textarea class="house-input" placeholder="Diff 2: In Sparta, boys trained to be soldiers." rows="2"></textarea>
+            </div>
+            <div class="house-row d" data-page-node-id="AOt0xL5W9LGiWuQfzqWyfv">
+              <div class="house-label" data-page-node-id="N2mYQHqUhsn1vd72nfVpNB">D</div>
+              <textarea class="house-input" placeholder="Diff 3: Women in Sparta could do more than women in Athens." rows="2"></textarea>
+            </div>
+            <div class="house-row e" data-page-node-id="28Uiygtkl6g1FHHPiU5IJg">
+              <div class="house-label" data-page-node-id="nypWVapFMgdtfkf900tB7I">E</div>
+              <textarea class="house-input" placeholder="Ending: They were alike in some ways, but their daily lives were very different." rows="2"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="house-legend" data-page-node-id="Nqt7lnCkWfZ3PytlGZQ5BX">
+        <div class="legend-item" data-page-node-id="Bg5CJxkAiD7cM0GvA4G6af"><div class="legend-dot" style="background:var(--athens-blue)" data-page-node-id="hpgWjKgE8tTrm1YaM2OguT"></div>T = Topic sentence</div>
+        <div class="legend-item" data-page-node-id="32dpDM90oPJrkDZBvktqet"><div class="legend-dot" style="background:var(--same-green)" data-page-node-id="vAlW5imkn7mcQsncqgOodg"></div>I = Important (same)</div>
+        <div class="legend-item" data-page-node-id="tUuHJvXCsBGZAgcIxUPgiP"><div class="legend-dot" style="background:var(--diff-orange)" data-page-node-id="v75gaTaAgFGBArl9VbwFlm"></div>D = Different</div>
+        <div class="legend-item" data-page-node-id="G7MwOysLCSlq1qIoqiIJ28"><div class="legend-dot" style="background:#7B1FA2" data-page-node-id="VUunB8VoYDc80xwAtRNcCd"></div>E = Ending sentence</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Step 4: Sentence Builder ===== -->
+  <section class="section" id="step4" data-page-node-id="pjfdoOWF1Shml278spu20v">
+    <div class="section-header" data-page-node-id="LA8QUYHEGjED1Wbp23jf6s">
+      <div class="section-num" style="background:var(--diff-orange)" data-page-node-id="LvIUYNhGH9pkdIWALwJPPz">4</div>
+      <h2 data-page-node-id="x5myBfIec3JjxeARTyb3U0">Build Sentences</h2>
+      <span class="hint" data-page-node-id="HdOWp1t2hEVGAvSbkDZZAL">Use the starters</span>
+    </div>
+    <div class="section-body" data-page-node-id="KRDg4wXmyZqwKt7ChmUpBV">
+      <p style="margin-bottom:14px;color:var(--text-light);font-size:0.9rem;" data-page-node-id="8oOtv7M56DjQqYT3JqtxVL">
+        Use these sentence starters to write comparison and contrast sentences. Fill in the blanks.
+      </p>
+      <div class="sentence-starters" data-page-node-id="AdGD8CWW7KEQ9eCcegjvJq">
+        <div class="starter-card same" data-page-node-id="8Om6KQoRWN5uDXlSLjhRkO">
+          <span class="starter-text" data-page-node-id="9vf31vPv8eZbVoerxF0CQO">Both Athens and Sparta</span>
+          <input class="starter-input" placeholder="were city-states in Ancient Greece." data-page-node-id="YnEtd7hLyJ7htPs638GH4F">
+        </div>
+        <div class="starter-card diff" data-page-node-id="fKYVBxWM7S3jv9qBrQDjhL">
+          <span class="starter-text" data-page-node-id="aH1WtcN1MhJSvpm29XsQU6">In Athens, boys</span>
+          <input class="starter-input" placeholder="learned reading and math," data-page-node-id="gLK2ipAAf8o2mUTrzOo6sP">
+          <span class="starter-text" style="margin-left:4px" data-page-node-id="uswQwVXUSQn7d6xRdbgaiF">but in Sparta, boys</span>
+          <input class="starter-input" placeholder="trained to be soldiers." data-page-node-id="p15TmXgM3ebuViwViMSXLA">
+        </div>
+        <div class="starter-card diff" data-page-node-id="NCFdWcUrMMAkgtDn2kIIAt">
+          <span class="starter-text" data-page-node-id="CpvgZCuOBNKHbBHEfL4t3V">One difference is that</span>
+          <input class="starter-input" placeholder="women in Sparta had more freedom than women in Athens." data-page-node-id="CJSvzuX8BQBArMoLMbDlo8">
+        </div>
+        <div class="starter-card same" data-page-node-id="LFH4RhRGb72HBb0yFcYQXL">
+          <span class="starter-text" data-page-node-id="jF6x4iAf1tGidPh88rO2KT">They were alike because</span>
+          <input class="starter-input" placeholder="people lived in both places a long time ago." data-page-node-id="BZ1TYzMLMeNXlfznxOxBEv">
+        </div>
+        <div class="starter-card diff" data-page-node-id="EIwCEuYTcVDDmNESW9CSCb">
+          <span class="starter-text" data-page-node-id="H11WwTG11FtEtGA51ZcVon">Another difference is that</span>
+          <input class="starter-input" placeholder="Athens was busy with trading, but Sparta focused on the army." data-page-node-id="0FI88wl8PSUTapyk6H4a5Q">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Step 5: Final Writing ===== -->
+  <section class="section" id="step5" data-page-node-id="6W6BOKv2n0jwSpHSlaJ4LO">
+    <div class="section-header" data-page-node-id="9P6jikpCeASOtYdcFhAotu">
+      <div class="section-num" style="background:var(--athens-blue)" data-page-node-id="Dovusjn7v6RZiP47hZko3W">5</div>
+      <h2 data-page-node-id="gwa7NkrS3ocAfMd6ArCQ8b">Write Your Paragraph</h2>
+      <span class="hint" data-page-node-id="UeX2fLvs9iWC0jJNBOMeZ0">Now write it on your own!</span>
+    </div>
+    <div class="section-body" data-page-node-id="ouS86m4JZDqvFIKeGldR9u">
+      <div class="writing-prompt" data-page-node-id="m0OPsWFSMr9zkTJq6GY1f9">
+        <strong data-page-node-id="7T9GW8Sm4Ms0l97AtH4AUG">📌 Prompt:</strong> Compare and contrast life in Ancient Athens and Ancient Sparta. Include details from both texts.
+      </div>
+      <textarea class="writing-area" id="final-writing" placeholder="Write your paragraph here..."></textarea>
+      <div class="writing-checklist" data-page-node-id="isHACAYWrmBGtBid8DAO6D">
+        <div class="check-item" onclick="toggleCheck(this)" data-page-node-id="r11jhIpLYaMNsGzcK7aPZO">
+          <input type="checkbox" id="chk1" data-page-node-id="20RIOxk26kOHesyAAGzQ5O">
+          <label for="chk1" data-page-node-id="bTkTRO8ZuRgWUrA5u4VGvi">✅ I included at least 1 thing that was the SAME.</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)" data-page-node-id="sI7tXf7lYMlASk6feWPan6">
+          <input type="checkbox" id="chk2" data-page-node-id="wJVJv9RiBUMHWb1joSrgh0">
+          <label for="chk2" data-page-node-id="5PvQ56tEMp6ogvTttAn0Pf">✅ I included at least 2 things that were DIFFERENT.</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)" data-page-node-id="HiH3FP2Hs8eZuwdKbiNjcV">
+          <input type="checkbox" id="chk3" data-page-node-id="ewuH5VlAhy7zOOGOvpDv2O">
+          <label for="chk3" data-page-node-id="zvYNcB3k902Egkab7RhCtu">✅ I used details from BOTH texts.</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)" data-page-node-id="HWHE1WFcf6ukIsx1QVQE1x">
+          <input type="checkbox" id="chk4" data-page-node-id="IzQrYwrjKt6A7Ay6VuaFJo">
+          <label for="chk4" data-page-node-id="OkgGE8BPwl8p1RMX6jlVvB">✅ I have a topic sentence and an ending sentence.</label>
+        </div>
+        <div class="check-item" onclick="toggleCheck(this)" data-page-node-id="ERJm4DNWXZmEjqezfqGG8H">
+          <input type="checkbox" id="chk5" data-page-node-id="kkmSIaXUighqGS84FKX4xd">
+          <label for="chk5" data-page-node-id="Tq46gKBepEGoUIUiAP32cW">✅ I used words like "both," "but," "however," or "another difference."</label>
+        </div>
+      </div>
+      <div class="actions" data-page-node-id="Z4AknmOSW7lxHXAFS94aFL">
+        <button class="btn btn-primary" onclick="copyToWriting()" data-page-node-id="YnX32boTCaFLgWaoZWfdbh">📋 Copy from House Map</button>
+        <button class="btn btn-secondary" onclick="printWork()" data-page-node-id="5SEAVdcqXK5lE8J55mfVYn">🖨️ Print / Save</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Step 6: Glow & Grow ===== -->
+  <section class="section" id="step6" data-page-node-id="e0ma7vcI98ScxxHIwKOCfq">
+    <div class="section-header" data-page-node-id="87Dunkcq4hNwb1FrHfyisA">
+      <div class="section-num" style="background:var(--same-green)" data-page-node-id="PnnOKJ7IaUTNl1RluSabWa">6</div>
+      <h2 data-page-node-id="qHzZERI5LoGbvu8DwUXK5O">Glow & Grow</h2>
+      <span class="hint" data-page-node-id="rvJPGiVkwD8036yAF29jMW">Reflect on your work</span>
+    </div>
+    <div class="section-body" data-page-node-id="ynFcpuEmmKwXTeUcEnLEQQ">
+      <p style="margin-bottom:14px;color:var(--text-light);font-size:0.9rem;" data-page-node-id="Gg8fpLo6ReTgYXuxooeNHJ">
+        What did you do well? What can you improve next time?
+      </p>
+      <div class="glow-grow" data-page-node-id="kU9bCnUoGk8q7w14Z7OuQF">
+        <div class="gg-card glow" data-page-node-id="2ba47AYcE0Snb9EtUx13an">
+          <h3 data-page-node-id="sj6kIlUvbpBDQk21AIdcEO">⭐ Glow — What I did well</h3>
+          <textarea placeholder="I remembered key facts about Athens and Sparta. I used compare and contrast words."></textarea>
+        </div>
+        <div class="gg-card grow" data-page-node-id="DCrB49HyA3SvX6LQbRYSSq">
+          <h3 data-page-node-id="LqSnXyOGYRJFVIxwrlkhas">🌱 Grow — What I can improve</h3>
+          <textarea placeholder="I can organize my ideas into same and different sections. I can add more text details."></textarea>
+        </div>
+      </div>
+      <div class="actions" style="margin-top:20px;" data-page-node-id="lZZumNVAxU7qPoc3WAFLgw">
+        <button class="btn btn-secondary" onclick="printWork()" data-page-node-id="PRFJZrRHIc8NyhEVwBHEOh">🖨️ Print / Save All Work</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast" data-page-node-id="olGvjYRTHUTICm3HSft2R8"></div>
+
+<script>
+// Flip vocabulary cards
+function flipCard(card) {
+  card.classList.toggle('flipped');
+}
+
+// Add new row to T-chart
+function addRow(cellId) {
+  const cell = document.getElementById(cellId);
+  const ta = document.createElement('textarea');
+  ta.placeholder = 'Type here...';
+  ta.rows = 2;
+  cell.appendChild(ta);
+  ta.focus();
+}
+
+// Toggle checklist item styling
+function toggleCheck(item) {
+  const cb = item.querySelector('input');
+  cb.checked = !cb.checked;
+  item.classList.toggle('done', cb.checked);
+}
+
+// Copy house map content to writing area
+function copyToWriting() {
+  const inputs = document.querySelectorAll('.house-input');
+  let text = [];
+  inputs.forEach(inp => {
+    if (inp.value.trim()) text.push(inp.value.trim());
+  });
+  if (text.length === 0) {
+    showToast('House map is empty — fill it in first!');
+    return;
+  }
+  const wa = document.getElementById('final-writing');
+  wa.value = text.join(' ');
+  showToast('Copied to writing area! Now you can edit it.');
+  wa.scrollIntoView({ behavior: 'smooth' });
+  wa.focus();
+}
+
+// Print
+function printWork() {
+  window.print();
+}
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Save all data to localStorage
+function saveData() {
+  const data = {};
+  document.querySelectorAll('textarea, input.starter-input').forEach((el, i) => {
+    if (el.value.trim()) data['field_' + i] = el.value;
+  });
+  localStorage.setItem('athens_sparta_worktable', JSON.stringify(data));
+}
+
+// Load saved data
+function loadData() {
+  const saved = localStorage.getItem('athens_sparta_worktable');
+  if (!saved) return;
+  const data = JSON.parse(saved);
+  document.querySelectorAll('textarea, input.starter-input').forEach((el, i) => {
+    if (data['field_' + i]) el.value = data['field_' + i];
+  });
+}
+
+// Auto-save every 3 seconds
+setInterval(saveData, 3000);
+window.addEventListener('load', loadData);
+
+// Print styles
+const style = document.createElement('style');
+style.textContent = `
+  @media print {
+    .step-nav, .actions, .add-row-btn, .tap-hint { display: none !important; }
+    .section { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; }
+    .header { border-radius: 0; }
+    .toast { display: none; }
+  }
+`;
+document.head.appendChild(style);
+</script>
+
+</body>
+</html>

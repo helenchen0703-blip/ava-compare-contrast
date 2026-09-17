@@ -449,6 +449,147 @@ body {
 }
 .toast.show { transform: translateX(-50%) translateY(0); }
 
+/* ===== Pet Mascots ===== */
+.pet-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 8px;
+}
+.pet-mascot {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  animation: petBounce 2.5s ease-in-out infinite;
+}
+.pet-mascot.sparta { animation-delay: 0.5s; }
+.pet-mascot svg { width: 100%; height: 100%; }
+
+@keyframes petBounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+}
+
+/* Pet guide floating bubble */
+.pet-guide {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+.pet-guide-avatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  animation: petWag 1.8s ease-in-out infinite;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));
+}
+.pet-guide-avatar svg { width: 100%; height: 100%; }
+.pet-guide-bubble {
+  background: white;
+  border: 2px solid var(--athens-blue);
+  border-radius: 14px 14px 4px 14px;
+  padding: 10px 16px;
+  font-size: 0.88rem;
+  color: var(--text);
+  max-width: 200px;
+  box-shadow: var(--shadow-lg);
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
+  animation: bubblePop 0.4s ease-out;
+}
+.pet-guide-bubble:hover { transform: scale(1.05); }
+@keyframes bubblePop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes petWag {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(8deg); }
+}
+
+/* Pet in section headers */
+.section-pet {
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.section-pet svg { width: 100%; height: 100%; }
+
+/* Celebration overlay */
+.celebration {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(4px);
+}
+.celebration.show { display: flex; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.celebration-card {
+  background: white;
+  border-radius: 24px;
+  padding: 36px 48px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  border: 3px solid var(--same-green);
+}
+.celebration-pets {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+.celebration-pets .pet-mascot {
+  width: 80px;
+  height: 80px;
+  animation: celebrateJump 0.6s ease-in-out infinite;
+}
+.celebration-pets .pet-mascot:nth-child(2) { animation-delay: 0.3s; }
+@keyframes celebrateJump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+.celebration-card h2 { font-size: 1.4rem; color: var(--same-green); margin-bottom: 6px; }
+.celebration-card p { font-size: 1rem; color: var(--text-light); }
+.celebration-card button {
+  margin-top: 18px;
+  padding: 10px 28px;
+  border: none;
+  border-radius: 12px;
+  background: var(--same-green);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.celebration-card button:hover { background: #2E7D32; }
+
+/* Confetti */
+.confetti-piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  animation: confettiFall 2s linear forwards;
+}
+@keyframes confettiFall {
+  0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 600px) {
   .header h1 { font-size: 1.3rem; }
@@ -457,16 +598,101 @@ body {
   .house-roof span { top: 24px; left: -25px; width: 50px; }
   .house-body { width: 260px; }
   .house-label { width: 32px; font-size: 0.9rem; }
+  .pet-mascot { width: 60px; height: 60px; }
+  .pet-guide { display: none; }
+  .celebration-pets .pet-mascot { width: 60px; height: 60px; }
 }
 </style>
 </head>
 <body data-page-node-id="gjDkIxkFf5uk3le3X3SqjM">
 
 <!-- ===== Header ===== -->
-<div class="header" data-page-node-id="92D022e7lR0x1yh0dYKgar">
-  <h1 data-page-node-id="J07SBGjHdcTV9srQ7p1PuC">Athens vs. Sparta — Compare & Contrast</h1>
-  <p data-page-node-id="dpyErNrG5KD5OlwLD3ftxg">Use evidence from both texts to show how they were alike and different.</p>
-  <span class="badge" data-page-node-id="FM1blIjAYk4amJcBMO9FRW">BRIDGE Worktable · Grade 4</span>
+<div class="header">
+  <div class="pet-row">
+    <!-- Athens Dog Mascot -->
+    <div class="pet-mascot athens">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ears -->
+        <ellipse cx="32" cy="35" rx="12" ry="20" fill="#D7A86E" transform="rotate(-15 32 35)"/>
+        <ellipse cx="88" cy="35" rx="12" ry="20" fill="#D7A86E" transform="rotate(15 88 35)"/>
+        <ellipse cx="32" cy="38" rx="7" ry="14" fill="#C49560" transform="rotate(-15 32 38)"/>
+        <ellipse cx="88" cy="38" rx="7" ry="14" fill="#C49560" transform="rotate(15 88 38)"/>
+        <!-- Body -->
+        <ellipse cx="60" cy="72" rx="34" ry="36" fill="#E8C49A"/>
+        <!-- Toga (white drape) -->
+        <path d="M30 70 Q40 78 60 76 Q80 78 90 70 L88 96 Q70 104 60 102 Q50 104 32 96 Z" fill="#FFFDE7" stroke="#E0D68A" stroke-width="1.5"/>
+        <path d="M50 76 L55 88 L60 76" fill="none" stroke="#D4CA6E" stroke-width="1.5"/>
+        <!-- Blue collar -->
+        <ellipse cx="60" cy="64" rx="30" ry="6" fill="#2196F3"/>
+        <circle cx="60" cy="66" r="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5"/>
+        <!-- Eyes -->
+        <circle cx="48" cy="52" r="6" fill="white"/>
+        <circle cx="72" cy="52" r="6" fill="white"/>
+        <circle cx="49" cy="53" r="3.5" fill="#333"/>
+        <circle cx="73" cy="53" r="3.5" fill="#333"/>
+        <circle cx="50" cy="52" r="1.2" fill="white"/>
+        <circle cx="74" cy="52" r="1.2" fill="white"/>
+        <!-- Snout -->
+        <ellipse cx="60" cy="60" rx="10" ry="7" fill="#E8C49A"/>
+        <ellipse cx="60" cy="57" rx="4" ry="3" fill="#5D4037"/>
+        <!-- Smile -->
+        <path d="M55 63 Q60 67 65 63" fill="none" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Cheeks -->
+        <circle cx="42" cy="60" r="4" fill="#FFAB91" opacity="0.5"/>
+        <circle cx="78" cy="60" r="4" fill="#FFAB91" opacity="0.5"/>
+        <!-- Scroll in paw -->
+        <rect x="82" y="80" width="18" height="14" rx="3" fill="#FFF8E1" stroke="#D4CA6E" stroke-width="1.5" transform="rotate(-10 91 87)"/>
+        <line x1="86" y1="84" x2="96" y2="84" stroke="#D4CA6E" stroke-width="1" transform="rotate(-10 91 87)"/>
+        <line x1="86" y1="88" x2="96" y2="88" stroke="#D4CA6E" stroke-width="1" transform="rotate(-10 91 87)"/>
+      </svg>
+    </div>
+    <!-- Title -->
+    <div>
+      <h1>Athens vs. Sparta</h1>
+      <p>Compare &amp; Contrast Worktable</p>
+    </div>
+    <!-- Sparta Cat Mascot -->
+    <div class="pet-mascot sparta">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ears -->
+        <path d="M28 30 L22 10 L38 22 Z" fill="#A1887F"/>
+        <path d="M92 30 L98 10 L82 22 Z" fill="#A1887F"/>
+        <path d="M30 28 L26 16 L36 22 Z" fill="#D7CCC8"/>
+        <path d="M90 28 L94 16 L84 22 Z" fill="#D7CCC8"/>
+        <!-- Spartan helmet crest (red Mohawk) -->
+        <path d="M60 8 Q50 12 45 22 L48 26 Q55 18 60 16 Q65 18 72 26 L75 22 Q70 12 60 8 Z" fill="#E53935"/>
+        <path d="M55 10 L53 20 M60 8 L60 18 M65 10 L67 20" stroke="#C62828" stroke-width="1.5"/>
+        <!-- Helmet -->
+        <path d="M35 28 Q35 18 60 16 Q85 18 85 28 L82 48 L38 48 Z" fill="#90A4AE" stroke="#546E7A" stroke-width="2"/>
+        <path d="M45 46 L40 28 M75 46 L80 28" stroke="#546E7A" stroke-width="1"/>
+        <!-- Body -->
+        <ellipse cx="60" cy="75" rx="32" ry="33" fill="#BCAAA4"/>
+        <ellipse cx="60" cy="75" rx="32" ry="33" fill="#D7CCC8" opacity="0.5"/>
+        <!-- Red cape -->
+        <path d="M32 68 Q28 85 30 105 L42 100 L50 108 L60 100 L70 108 L78 100 L90 105 Q92 85 88 68 Z" fill="#E53935" opacity="0.85"/>
+        <!-- Eyes (visible below helmet) -->
+        <circle cx="50" cy="55" r="6" fill="white"/>
+        <circle cx="70" cy="55" r="6" fill="white"/>
+        <circle cx="51" cy="56" r="3.5" fill="#333"/>
+        <circle cx="71" cy="56" r="3.5" fill="#333"/>
+        <circle cx="52" cy="55" r="1.2" fill="white"/>
+        <circle cx="72" cy="55" r="1.2" fill="white"/>
+        <!-- Nose -->
+        <path d="M57 62 L60 66 L63 62 Z" fill="#5D4037"/>
+        <!-- Brave mouth -->
+        <path d="M54 70 Q60 74 66 70" fill="none" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Whiskers -->
+        <line x1="48" y1="65" x2="30" y2="63" stroke="#8D6E63" stroke-width="1" stroke-linecap="round"/>
+        <line x1="48" y1="68" x2="30" y2="70" stroke="#8D6E63" stroke-width="1" stroke-linecap="round"/>
+        <line x1="72" y1="65" x2="90" y2="63" stroke="#8D6E63" stroke-width="1" stroke-linecap="round"/>
+        <line x1="72" y1="68" x2="90" y2="70" stroke="#8D6E63" stroke-width="1" stroke-linecap="round"/>
+        <!-- Tiny spear -->
+        <line x1="95" y1="48" x2="108" y2="95" stroke="#546E7A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M92 44 L98 44 L95 38 Z" fill="#90A4AE" stroke="#546E7A" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+  <span class="badge">BRIDGE Worktable · Grade 4</span>
 </div>
 
 <div class="container" data-page-node-id="ZrHE4N3S4p7jHSbLoV2Am4">
@@ -743,7 +969,53 @@ body {
 
 </div>
 
-<div class="toast" id="toast" data-page-node-id="olGvjYRTHUTICm3HSft2R8"></div>
+<!-- Floating Pet Guide -->
+<div class="pet-guide" id="petGuide">
+  <div class="pet-guide-bubble" id="petBubble" onclick="nextTip()">
+    Hi! I'm Paws. Tap me for tips!
+  </div>
+  <div class="pet-guide-avatar" id="petAvatar">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <!-- Ears -->
+      <ellipse cx="28" cy="32" rx="10" ry="16" fill="#D7A86E" transform="rotate(-12 28 32)"/>
+      <ellipse cx="72" cy="32" rx="10" ry="16" fill="#D7A86E" transform="rotate(12 72 32)"/>
+      <ellipse cx="28" cy="34" rx="6" ry="12" fill="#C49560" transform="rotate(-12 28 34)"/>
+      <ellipse cx="72" cy="34" rx="6" ry="12" fill="#C49560" transform="rotate(12 72 34)"/>
+      <!-- Body -->
+      <ellipse cx="50" cy="58" rx="28" ry="30" fill="#E8C49A"/>
+      <!-- Blue bandana -->
+      <path d="M30 52 Q40 58 50 56 Q60 58 70 52 L66 68 Q56 72 50 70 Q44 72 34 68 Z" fill="#2196F3"/>
+      <circle cx="50" cy="62" r="4" fill="#FFD54F"/>
+      <!-- Eyes -->
+      <circle cx="42" cy="46" r="5" fill="white"/>
+      <circle cx="58" cy="46" r="5" fill="white"/>
+      <circle cx="43" cy="47" r="3" fill="#333"/>
+      <circle cx="59" cy="47" r="3" fill="#333"/>
+      <circle cx="44" cy="46" r="1" fill="white"/>
+      <circle cx="60" cy="46" r="1" fill="white"/>
+      <!-- Snout -->
+      <ellipse cx="50" cy="54" rx="8" ry="6" fill="#E8C49A"/>
+      <ellipse cx="50" cy="51" rx="3" ry="2.5" fill="#5D4037"/>
+      <!-- Smile -->
+      <path d="M45 57 Q50 60 55 57" fill="none" stroke="#5D4037" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Cheeks -->
+      <circle cx="36" cy="54" r="3.5" fill="#FFAB91" opacity="0.5"/>
+      <circle cx="64" cy="54" r="3.5" fill="#FFAB91" opacity="0.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- Celebration Overlay -->
+<div class="celebration" id="celebration">
+  <div class="celebration-card">
+    <div class="celebration-pets" id="celebrationPets"></div>
+    <h2>Awesome Job, Ava!</h2>
+    <p>You checked all the boxes! You're a compare & contrast star!</p>
+    <button onclick="closeCelebration()">Keep Going!</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 // Flip vocabulary cards
@@ -761,11 +1033,107 @@ function addRow(cellId) {
   ta.focus();
 }
 
-// Toggle checklist item styling
+// Toggle checklist item styling + check for celebration
 function toggleCheck(item) {
   const cb = item.querySelector('input');
   cb.checked = !cb.checked;
   item.classList.toggle('done', cb.checked);
+  // Check if all 5 items are done
+  const allChecks = document.querySelectorAll('.check-item input');
+  const allDone = Array.from(allChecks).every(c => c.checked);
+  if (allDone) {
+    setTimeout(showCelebration, 400);
+  }
+}
+
+// ===== Pet Guide Tips =====
+const petTips = [
+  "Hi! I'm Paws, your guide! Tap me for tips!",
+  "Tip: Read both texts first before you start writing!",
+  "Green = same, Orange = different. Color helps you organize!",
+  "The house map is your plan. Fill each box with one idea!",
+  "Use 'Both...' for same, 'In Athens..., but in Sparta...' for different!",
+  "Don't forget your ending sentence to wrap it up!",
+  "Check each box before you finish. You've got this!",
+  "Remember: same task, right support, less help over time!",
+  "You're doing great! Keep going!",
+];
+let tipIndex = 0;
+function nextTip() {
+  tipIndex = (tipIndex + 1) % petTips.length;
+  const bubble = document.getElementById('petBubble');
+  bubble.style.animation = 'none';
+  bubble.offsetHeight;
+  bubble.style.animation = 'bubblePop 0.4s ease-out';
+  bubble.textContent = petTips[tipIndex];
+}
+
+// Show tip based on scroll position
+function updateTipOnScroll() {
+  const sections = document.querySelectorAll('.section');
+  const bubble = document.getElementById('petBubble');
+  const scrollPos = window.scrollY + 200;
+  for (let i = sections.length - 1; i >= 0; i--) {
+    if (sections[i].offsetTop <= scrollPos) {
+      const stepTips = [
+        "Tap each word card to check if you know it!",
+        "Sort ideas: green for same, orange for different!",
+        "Fill the house map — each box is one sentence!",
+        "Use the starters to build strong sentences!",
+        "Write your paragraph and check each box!",
+        "What did you do well? What can you improve?",
+      ];
+      if (bubble.textContent !== stepTips[i]) {
+        bubble.style.animation = 'none';
+        bubble.offsetHeight;
+        bubble.style.animation = 'bubblePop 0.4s ease-out';
+        bubble.textContent = stepTips[i];
+      }
+      break;
+    }
+  }
+}
+window.addEventListener('scroll', updateTipOnScroll);
+
+// ===== Celebration =====
+function showCelebration() {
+  const overlay = document.getElementById('celebration');
+  const petsContainer = document.getElementById('celebrationPets');
+  // Clone the Athens dog and Sparta cat SVGs
+  const athensDog = document.querySelector('.pet-mascot.athens svg').cloneNode(true);
+  const spartaCat = document.querySelector('.pet-mascot.sparta svg').cloneNode(true);
+  petsContainer.innerHTML = '';
+  const wrap1 = document.createElement('div');
+  wrap1.className = 'pet-mascot';
+  wrap1.appendChild(athensDog);
+  const wrap2 = document.createElement('div');
+  wrap2.className = 'pet-mascot';
+  wrap2.appendChild(spartaCat);
+  petsContainer.appendChild(wrap1);
+  petsContainer.appendChild(wrap2);
+  overlay.classList.add('show');
+  // Spawn confetti
+  spawnConfetti();
+}
+
+function closeCelebration() {
+  document.getElementById('celebration').classList.remove('show');
+  document.querySelectorAll('.confetti-piece').forEach(c => c.remove());
+}
+
+function spawnConfetti() {
+  const colors = ['#2196F3', '#E53935', '#43A047', '#FB8C00', '#7B1FA2', '#FFD54F'];
+  for (let i = 0; i < 40; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.top = '-20px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = Math.random() * 0.5 + 's';
+    piece.style.animationDuration = (1.5 + Math.random() * 1) + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 3000);
+  }
 }
 
 // Copy house map content to writing area
